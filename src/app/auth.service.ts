@@ -21,4 +21,18 @@ export class AuthService {
         });
     });
   }
+  doGoogleLogin() {
+    return new Promise<any>((resolve, reject) => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      // If you need to get additional information from the user
+      // such as his birthday you can use the addScope method. For example: provider.addScope('user_birthday');
+      provider.addScope('profile');
+      provider.addScope('email');
+      this.afAuth.auth
+        .signInWithPopup(provider)
+        .then(res => {
+          resolve(res);
+        });
+    });
+  }
 }
